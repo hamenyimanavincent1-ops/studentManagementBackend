@@ -6,15 +6,21 @@ const port = 3000;
 
 
 app.use(express.json());
-app.use(cors());
+const cors = require("cors");
+
+app.use(cors({
+  origin: "https://myapp.com",
+  credentials: true
+}));
+
 
 
 //connection to mysql database
 const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'vvv@edouard',
-  database: 'studentsInfo'
+  host: process.env.db_host,
+  user: process.env.db_user,
+  password: process.env.db_password,
+  database: process.env.db_database
 });
 
 db.connect((err) => {
