@@ -26,12 +26,15 @@ const db = mysql.createPool({
   }
 });
 
-db.connect((err) => {
+db.getConnection((err, connection) => {
   if (err) {
     console.error('Error connecting to the database:', err);
     return;
   }
-  console.log('Connected to the MySQL database.');
+
+  console.log('Connected to the Aiven MySQL database.');
+
+  connection.release();
 });
 
 //view all students in the database
