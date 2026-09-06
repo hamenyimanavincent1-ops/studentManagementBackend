@@ -3,7 +3,7 @@ const app = express();
 const cors = require('cors');
 const mysql = require('mysql2');
 const PORT = process.env.PORT || 3000;
-
+require('dotenv').config();
 
 app.use(express.json());
 
@@ -14,8 +14,8 @@ app.use(cors({
 
 
 
-//connection to mysql database
-const db = mysql.createConnection({
+//mysql connection pool
+const db = mysql.createPool({
   host: process.env.DB_HOST,
   port: process.env.DB_PORT,
   user: process.env.DB_USER,
