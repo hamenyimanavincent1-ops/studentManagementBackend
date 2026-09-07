@@ -8,8 +8,7 @@ require('dotenv').config();
 app.use(express.json());
 
 app.use(cors({
-  origin: "https://myapp.com",
-  credentials: true
+    origin: 'https://student-management-system-fronted.onrender.com/'
 }));
 
 
