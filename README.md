@@ -13,6 +13,8 @@ Example using browser
 Open:
 
 https://studentmanagementbackend-b271.onrender.com/
+
+
 Example response
 [
   {
@@ -32,7 +34,9 @@ Example response
     "dateOfBirth": "2005-07-25"
   }
 ]
+
 2. Add a Student
+   
 
 Adds a new student to the database.
 
@@ -76,7 +80,9 @@ fetch("https://studentmanagementbackend-b271.onrender.com/insert_students", {
   .then(response => response.text())
   .then(data => console.log(data))
   .catch(error => console.error(error));
+  
 3. Update a Student
+
 
 Updates an existing student using their ID.
 
@@ -98,7 +104,9 @@ Request body
 }
 Success response
 Student updated successfully
+
 4. Delete a Student
+   
 
 Deletes a student using their ID.
 
@@ -114,12 +122,12 @@ Student deleted successfully
 
 API Summary
 
-Method	Endpoint	Purpose
+Method	      Endpoint         	Purpose
 
-GET	/	Get all students  view all students
+GET	          /                view all students
 
-POST	/insert_students	Add a student
+POST	      /insert_students	   Add a student
 
-PUT	/update_students/:id	Update a student
+PUT	        /update_students/:id	Update a student
 
 DELETE	/delete_students/:id	Delete a student
