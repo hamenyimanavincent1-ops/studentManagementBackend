@@ -7,10 +7,15 @@ require('dotenv').config();
 
 app.use(express.json());
 
-app.use(cors({
-    origin: 'https://student-management-system-fronted.onrender.com/'
-}));
 
+const allowedOrigins = [
+  'https://student-management-system-fronted.onrender.com',
+  'http://localhost:5173'
+];
+
+app.use(cors({
+  origin: allowedOrigins
+}));
 
 
 //mysql connection pool
