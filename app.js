@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const mysql = require('mysql2');
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3002;
 require('dotenv').config();
 
 app.use(express.json());
@@ -17,17 +17,13 @@ app.use(cors({
   origin: allowedOrigins
 }));
 
-
 //mysql connection pool
 const db = mysql.createPool({
   host: process.env.DB_HOST,
-  port: process.env.DB_PORT,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  ssl: {
-    ca: process.env.AIVEN_CA_CERT
-  }
+    port: process.env.DB_PORT
 });
 
 db.getConnection((err, connection) => {
@@ -36,7 +32,7 @@ db.getConnection((err, connection) => {
     return;
   }
 
-  console.log('Connected to the Aiven MySQL database.');
+  console.log('Connected to the  MySQL database.');
 
   connection.release();
 });
@@ -73,7 +69,7 @@ app.post('/insert_students', (req, res) => {
 app.put('/update_students/:id', (req, res) => {
     const studentId = req.params.id;
     const { fullName, email, phone, gender, dateOfBirth } = req.body;
-    const sql = 'UPDATE students SET fullName = ?, email = ?, phone = ?, gender = ?, dateOfBirth = ? WHERE id = ?';
+    const sql = 'UPDATE students SET fullName = ?, email = ?, phone = ?, gender = ?, dateOfBirth = ? WHERE studentId = ?';
     db.query(sql, [fullName, email, phone, gender, dateOfBirth, studentId], (err, result) => {
         if (err) {
             console.error('Error executing query:', err);
@@ -87,7 +83,7 @@ app.put('/update_students/:id', (req, res) => {
 //delete a student from the database
 app.delete('/delete_students/:id', (req, res) => {
     const studentId = req.params.id;
-    const sql = 'DELETE FROM students WHERE id = ?';
+    const sql = 'DELETE FROM students WHERE studentId = ?';
     db.query(sql, [studentId], (err, result) => {
         if (err) {
             console.error('Error executing query:', err);
@@ -98,6 +94,6 @@ app.delete('/delete_students/:id', (req, res) => {
     });
 });     
 
-app.listen(process.env.PORT || 3000, () => {
-  console.log(`Server is running on http://localhost:${process.env.PORT || 3000}`);
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
 }); 
